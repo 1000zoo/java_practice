@@ -1,0 +1,111 @@
+흠..
+
+3가지 경우의수
+import java.util.LinkedList;
+import java.util.Queue;
+
+class Solution {
+    public int solution(int bridge_length, int weight, int[] truck_weights) {
+        int answer = 0;
+        int truck_index = 0;
+        int total_weights = 0;
+        Queue<Integer> pass = new LinkedList<>();
+        Queue<Integer> ing = new LinkedList<>();
+
+        while (pass.size() < truck_weights.length) {
+            if (truck_weights[truck_index] + total_weights <= weight
+                    && ing.size() <= bridge_length) {
+                ing.offer(truck_weights[truck_index]);
+                total_weights += truck_weights[truck_index];
+                if (truck_weights[truck_index + 1] + total_weights > weight) {
+                    pass.offer(ing.peek());
+                    answer += bridge_length - ing.size();
+                    total_weights -= ing.poll();
+                }
+            } else if (truck_weights[truck_index] + total_weights > weight) {
+                pass.offer(ing.peek());
+                answer += bridge_length - ing.size();
+                total_weights -= ing.poll();
+                ing.offer(truck_weights[truck_index]);
+                total_weights += truck_weights[truck_index];
+            } else if (ing.size() > bridge_length){
+                pass.offer(ing.peek());
+                total_weights -= ing.poll();
+                ing.offer(truck_weights[truck_index]);
+                total_weights += truck_weights[truck_index];
+            }
+            answer++;
+            truck_index++;
+        }
+
+        return answer;
+    }
+}
+
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
+
+class Solution {
+    public int solution(int bridge_length, int weight, int[] truck_weights) {
+        if(truck_weights == null) return 0;
+        int answer = 0;
+        int total_weight = 0;
+        Queue<Integer> current_queue = new LinkedList<>();
+
+        for(int i = 0; i < truck_weights.length; i++){
+            if(total_weight + truck_weights[i] < weight){
+                if(!current_queue.isEmpty() && current_queue.size() >= bridge_length){
+                    total_weight -= current_queue.poll();
+                } else{
+                    current_queue.offer(truck_weights[i]);
+                    total_weight += truck_weights[i];
+                }
+            } else if(!current_queue.isEmpty()){
+                answer += bridge_length - current_queue.size();
+                total_weight -= current_queue.poll();
+                current_queue.offer(truck_weights[i]);
+                total_weight += truck_weights[i];
+            }
+            answer++;
+        }
+        return answer;
+    }
+}
+
+index_queue 사용
+
+
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.Queue;
+
+class Solution {
+    public int solution(int bridge_length, int weight, int[] truck_weights) {
+        if(truck_weights == null) return 0;
+        int answer = 0;
+        int total_weight = 0;
+        int index = 0;
+        int[] count = new int[truck_weights.length];
+        Queue<Integer> index_queue = new LinkedList<>();
+        Arrays.fill(count, 0);
+
+        while(count[truck_weights.length - 1] == bridge_length + 1){
+            if(total_weight <= weight){
+                if(!index_queue.isEmpty() && count[index_queue.peek()] >= bridge_length + 1){
+                    total_weight -= truck_weights[index_queue.poll()];
+                } else{
+                    index_queue.offer(index++);
+                    total_weight += truck_weights[index++];
+                }
+            } else if(!index_queue.isEmpty()){
+                answer += bridge_length - index_queue.size();
+                count[index_queue.peek()] = bridge_length + 1;
+                total_weight -= truck_weights[index_queue.poll()];
+            }
+            answer++;
+        }
+
+        return answer;
+    }
+}
