@@ -17,7 +17,6 @@ public class Solution {
         return answer;
     }
     /*
-    *if we use reflection, memory usage will be reduced
     * public int getDecimalValue(ListNode head){
         if (head.next != null) {
             return (head.val + getDecimalValue(head.next)) * 2;
