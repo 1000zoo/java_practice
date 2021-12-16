@@ -3,8 +3,11 @@
 
 public class Solution {
 
+<<<<<<< HEAD
     //Runtime: 1 ms, faster than 74.30% of Java online submissions for Remove Linked List Elements.
     //Memory Usage: 46.3 MB, less than 5.26% of Java online submissions for Remove Linked List Elements.
+=======
+>>>>>>> origin/master
     public class ListNode {
         int val;
         ListNode next;
