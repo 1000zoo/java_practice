@@ -21,7 +21,24 @@ public class Solution {
         }
     }
 
+    //Runtime: 0 ms, faster than 100.00% of Java online submissions for Middle of the Linked List.
+    //Memory Usage: 36.2 MB, less than 94.52% of Java online submissions for Middle of the Linked List.
     public ListNode middleNode(ListNode head) {
+        ListNode curr = head;
+        ListNode dummy = head;
+        int cnt = 0;
+        while(curr.next != null) {
+            cnt++;
+            curr = curr.next;
+        }
+        for(int i = 0; i < cnt / 2; i++){
+            dummy = dummy.next;
+        }
+        if(cnt % 2 == 1) return dummy.next;
+        else return dummy;
+    }
+
+    public ListNode middleNode_(ListNode head) {
         if (head.next == null) return head;
 
         ArrayList<Integer> nodes = new ArrayList<>();
@@ -40,6 +57,10 @@ public class Solution {
         }
         return answer.next;
     }
+
+
+
+
 
 /* using reverseList function but failed.
     public ListNode middleNode(ListNode head) {
