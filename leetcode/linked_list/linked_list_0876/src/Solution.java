@@ -37,8 +37,17 @@ public class Solution {
         if(cnt % 2 == 1) return dummy.next;
         else return dummy;
     }
+        public ListNode middleNode_(ListNode head) {
+            ListNode oneStep = head;
+            ListNode twoStep = head;
+            while(twoStep != null && twoStep.next != null){
+                oneStep = oneStep.next;
+                twoStep = twoStep.next.next;
+            }
+            return oneStep;
+        }
 
-    public ListNode middleNode_(ListNode head) {
+    public ListNode middleNode__(ListNode head) {
         if (head.next == null) return head;
 
         ArrayList<Integer> nodes = new ArrayList<>();
