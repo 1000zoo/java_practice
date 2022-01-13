@@ -16,13 +16,14 @@ public class Solution {
         }
         return answer;
     }
-    /*
-    * public int getDecimalValue(ListNode head){
-        if (head.next != null) {
-            return (head.val + getDecimalValue(head.next)) * 2;
-        } else {
-            return head.val;
+
+    public int getDecimalValue_(ListNode head){
+        int sum = 0;
+        while(head != null){
+            sum = (sum << 1) | head.val;
+            head = head.next;
         }
+        return sum;
     }
-    * */
+
 }
